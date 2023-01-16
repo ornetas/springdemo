@@ -2,6 +2,7 @@ package lt.ornetas.springdemo.bootstrap;
 
 import lt.ornetas.springdemo.repository.CustomerRepository;
 import lt.ornetas.springdemo.repository.ProductLineRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -9,14 +10,10 @@ import org.springframework.stereotype.Component;
 
 public class BootStrapData implements CommandLineRunner {
 
-    private CustomerRepository customerRepository;
-    private ProductLineRepository productLineRepository;
-
-    public BootStrapData(CustomerRepository customerRepository,ProductLineRepository productLineRepository) {
-        this.customerRepository = customerRepository;
-        this.productLineRepository = productLineRepository;
-    }
-
+   @Autowired
+   private CustomerRepository customerRepository;
+   @Autowired
+   private ProductLineRepository productLineRepository;
 
     @Override
     public void run(String... args) throws Exception {
