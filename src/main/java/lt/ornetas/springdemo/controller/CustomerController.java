@@ -4,10 +4,7 @@ import lt.ornetas.springdemo.repository.model.Customer;
 import lt.ornetas.springdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,36 @@ public class CustomerController {
     @GetMapping(path = "/customer/{id}")
     public @ResponseBody Customer getCustomerById(@PathVariable int id){
         return customerService.getCustomerById(id);
+    }
+
+    // http://localhost:8080/customermapping/mycustomer/112
+   @GetMapping (path = "/mycustomer/{id}")
+    public @ResponseBody Customer getMyCustomerById(@PathVariable int id){
+        return customerService.getCustomerById(id);
+
+    }
+    // http://localhost:8080/customermapping/mycustomer/name/Diecast%20Collectables
+    @GetMapping (path = "/mycustomer/name/{name}")
+    public @ResponseBody Customer getMyCustomerByName(@PathVariable String name){
+        return customerService.getMyCustomerByName(name);
+    }
+
+    // http://localhost:8080/customermapping/mycustomer/like/au
+    @GetMapping (path = "/mycustomer/like/{name}")
+    public @ResponseBody List<Customer> getMyCustomerByNameLike(@PathVariable String name){
+        return customerService.getMyCustomerByNameLike("%" + name + "%");
+    }
+
+    // http://localhost:8080/customermapping/mycustomer/querylike/auto
+    @GetMapping (path = "/mycustomer/querylike/{name}")
+    public @ResponseBody List <Customer> getQueryCustomerByNameLike(@PathVariable String name){
+        return customerService.getQueryCustomerByNameLike(name + "%");
+    }
+
+    // http://localhost:8080/customermapping/mycustomer/id?customerNumber=112
+    @GetMapping (path = "/mycustomer/id")
+    public @ResponseBody Customer getMyCustomerByIdWithRequestParam(@RequestParam int customerNumber){
+        return customerService.getCustomerById(customerNumber);
+
     }
 }

@@ -21,4 +21,19 @@ public class CustomerService {
         return customerRepository.findById(customerId).get();
 
     }
+    public Customer getMyCustomerById(int id){
+        return customerRepository.findByCustomerNumber(id).get();
+    }
+    public Customer getMyCustomerByName(String customerName){
+        return customerRepository.findByCustomerName(customerName).get();
+    }
+    public List<Customer> getMyCustomerByNameLike(String customerName){
+        return (List<Customer>) customerRepository.findByCustomerNameLike(customerName);
+    }
+    public List<Customer> getQueryCustomerByNameLike(String customerName){
+        return (List<Customer>) customerRepository.findByCustomerNameLike(customerName);
+    }
+
+
+
 }
