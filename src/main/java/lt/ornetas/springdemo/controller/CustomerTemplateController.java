@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/customertemplate")
 public class CustomerTemplateController {
@@ -31,9 +33,17 @@ public class CustomerTemplateController {
        model.addAttribute("company_name", customer.getCustomerName());
        model.addAttribute("contact_last_name", customer.getContactLastName());
        model.addAttribute("contact_first_name", customer.getContactFirstName());
-        model.addAttribute("country", customer.getCountry());
+       model.addAttribute("country", customer.getCountry());
 
         return "/test/firstpage";
+    }
+
+    // http://localhost:8080/customertemplate/firstpage/customer/all
+    @GetMapping(path = "/firstpage/customer/all")
+    public String getAllCustomers(Model model){
+        List<Customer> customerList = customerService.getAllCustomers();
+        model.addAttribute("key_customers_list", customerList);
+        return "test/firstpage_customer_list";
     }
 
 
