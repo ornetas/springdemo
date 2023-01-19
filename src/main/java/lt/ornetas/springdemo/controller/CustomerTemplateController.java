@@ -46,6 +46,24 @@ public class CustomerTemplateController {
         return "test/firstpage_customer_list";
     }
 
+
+    //JQuery set up
+
+    // http://localhost:8080/customertemplate/customers/jquery
+    @GetMapping(path = "/customers/jquery")
+    public String gertJquerypage(){
+        return "/test/jquerypage";
+    }
+
+    // http://localhost:8080/customertemplate/customers/like/a
+    @GetMapping(path = "/customers/like/{name}")
+    public @ResponseBody List<Customer> getMyCustomerByNameLike(@PathVariable String name){ // test
+        return  customerService.getMyCustomerByNameLike("%" + name + "%"); // %test%
+    }
+
+    //JQuery set up
+
+
     // http://localhost:8080/customertemplate/customer/112
     @GetMapping(path = "/customer/{id}")
     public String getCustomer(Model model, @PathVariable int id){
@@ -55,6 +73,15 @@ public class CustomerTemplateController {
 
         return "/customer/customer_th";
     }
+
+    // http://localhost:8080/customertemplate/customers/all
+    @GetMapping(path = "/customers/all")
+    public String getAllCustomersWithNewTemplate(Model model){
+        List<Customer> customerList = customerService.getAllCustomers();
+        model.addAttribute("key_customers_list", customerList);
+        return "/customer/customers_th";
+    }
+
 
 
 }
