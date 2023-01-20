@@ -5,11 +5,10 @@ import lt.ornetas.springdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -81,6 +80,32 @@ public class CustomerTemplateController {
         model.addAttribute("key_customers_list", customerList);
         return "/customer/customers_th";
     }
+
+    // Example with RequestMapping for GET and POST in the same page
+
+    // customertemplate/customers/getandpost
+    @RequestMapping (value = "/customers/getandpost", method = RequestMethod.GET)
+    public String getCustomerByNameLike(Model model){
+        model.addAttribute("key_customer", new Customer());
+        model.addAttribute("key_customer_listas", Collections.emptyList());
+        return "/customer/post_get_customers_th";
+    }
+
+    // customertemplate/customers/getandpost
+    @RequestMapping (value = "/customers/getandpost", method = RequestMethod.POST)
+    public String postCustomerByNameLike(Model model, @ModelAttribute(value = "key_customer") Customer customer){
+
+       List<Customer> customers =  customerService.getMyCustomerByNameLike("%" + customer.getCustomerName() + "%");
+        model.addAttribute("key_customer_listas", customers);
+
+        return "/customer/post_get_customers_th";
+    }
+
+
+
+
+
+    // Example with RequestMapping for GET and POST in the same page
 
 
 
